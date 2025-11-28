@@ -57,10 +57,10 @@ This project includes the firmware, PCB design files, and a complete engineering
 ---
 
 ## 📂 Repository Contents
-- `code/` – Flight controller firmware  
-- `pcb/` – KiCad schematic + PCB layout  
-- `media/` – Drone and PCB media  
-- `Project_Report.pdf` – Full technical report  
+- `Code/` – Flight controller firmware  
+- `PCB/` – KiCad schematic + PCB layout  
+- `Media/` – Drone Flight Media
+- `Project Report.pdf` – Full technical report  
 
 ---
 
