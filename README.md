@@ -29,7 +29,7 @@ This project includes the firmware, PCB design files, and a complete engineering
 
 ## 🖼 Drone Image
 
-![Custom ESP32 Quadcopter](./media/Drone/Drone_1.jpeg)
+![Custom ESP32 Quadcopter](./Media/Drone/Drone_1.jpeg)
 
 ---
 
