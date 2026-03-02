@@ -48,7 +48,7 @@ This project includes the firmware, PCB design files, and a complete engineering
 ## 🛠 Hardware Used
 - ESP32 Dev Module  
 - MPU6050 IMU  
-- A2212 1400KV motors + 30A ESCs  
+- RS-2212 920KV motors + 30A ESCs  
 - FlySky FS-i4X receiver  
 - 3S Li-Po battery  
 - F450 frame  
