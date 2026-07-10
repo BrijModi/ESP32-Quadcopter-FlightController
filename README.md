@@ -1,6 +1,6 @@
 # ESP32-Quadcopter-FlightController
 
-Open-source ESP32-based flight controller for quadcopters, implementing sensor fusion, nested PID control, motor mixing, and real-time Wi-Fi tuning. Designed with a custom PCB supporting altitude hold, GPS, and FPV modules.
+Open-source ESP32-based flight controller for quadcopters, featuring sensor fusion, nested PID control, motor mixing, real-time Wi-Fi PID tuning, and a custom KiCad PCB with support for GPS and FPV modules.
 
 ---
 
@@ -11,7 +11,7 @@ Unlike commercial closed-source flight controllers, this system allows direct mo
 The controller runs an **83 Hz control loop**, uses a **complementary filter** for real-time roll/pitch estimation, and stabilizes the quadcopter using **nested PID loops** (Angle + Rate).  
 A built-in **Wi-Fi interface** enables on-the-fly PID tuning and telemetry, eliminating the need to reflash firmware between adjustments.
 
-This project includes the firmware, PCB design files, and a complete engineering report documenting every part of the system.
+This repository includes the complete firmware, custom KiCad PCB design, calibration and testing utilities, project media, and a comprehensive technical report documenting the system design and implementation.
 
 ---
 
@@ -46,7 +46,7 @@ This project includes the firmware, PCB design files, and a complete engineering
 ---
 
 ## 🛠 Hardware Used
-- ESP32 Dev Module  
+- ESP32 DevKit V1
 - MPU6050 IMU  
 - RS-2212 920KV motors + 30A ESCs  
 - FlySky FS-i4X receiver  
@@ -57,17 +57,73 @@ This project includes the firmware, PCB design files, and a complete engineering
 ---
 
 ## 📂 Repository Contents
-- `Code/` – Flight controller firmware  
-- `PCB/` – KiCad schematic + PCB layout  
-- `Media/` – Drone Flight Media
-- `Project Report.pdf` – Full technical report  
+
+- `Firmware/`
+  - `Main_Firmware/` – Main ESP32-based quadcopter flight controller firmware
+  - `Testing_Calibration/` – Calibration, testing, and Wi-Fi PID tuning utilities
+  
+- `Hardware/`
+  - `Drone Flight Controller/` – Complete KiCad project (schematic, PCB layout, and project files)
+  - `FC Gerber.zip` – PCB manufacturing (Gerber) files
+  - `PCB View.pdf` – PCB layout overview
+  - `Schematic.pdf` – Flight controller circuit schematic
+  
+- `Media/`
+  - `Drone/` – Drone assembly, flight controller, and hardware images
+  - `Test Flight and Calibration/` – Flight test videos, calibration recordings, and PID response graph
+
+- `Technical Report.pdf` – Comprehensive technical documentation covering hardware design, firmware architecture, implementation, and testing
+
+---
+
+## 💻 Software Requirements
+
+- Arduino IDE 2.x
+- ESP32 Arduino Core
+- KiCad 9.x (for PCB design)
+
+---
+
+## 📚 Libraries Used
+
+- `Wire` – I²C communication
+- `ESP32Servo` – ESC PWM control
+- `WiFi` – Wireless communication
+- `AsyncTCP` – Asynchronous TCP networking
+- `ESPAsyncWebServer` – Web-based PID tuning dashboard
+- `SPIFFS` – Web dashboard file storage
 
 ---
 
 ## 🚀 Getting Started
-1. Flash the ESP32 with the firmware in `src/`  
-2. Connect the MPU6050 via I²C and hook ESC signals to PWM pins  
-3. Power the system with a 3S Li-Po battery  
-4. Connect to the Wi-Fi access point  
-5. Open the tuning dashboard and configure PID gains  
-6. Perform pre-flight calibration and test hover at low throttle
+
+Follow the steps below to configure and fly the quadcopter for the first time.
+
+### 1. Hardware Setup
+- Assemble the quadcopter and connect all hardware components.
+- Wire the ESP32, MPU6050, ESCs, receiver, and motors according to the provided schematic.
+
+### 2. Verify Receiver and ESCs
+- Upload the firmware from `Firmware/Testing_Calibration/Receiver_PWM_Testing/` to verify proper receiver operation.
+- Upload the firmware from `Firmware/Testing_Calibration/ESC_Calibration/` and calibrate all ESCs.
+
+### 3. Calibrate the IMU
+- Upload the firmware from `Firmware/Testing_Calibration/IMU_Calibration/`.
+- Place the quadcopter on a level surface and perform the IMU calibration.
+- Copy the generated accelerometer and gyroscope offset values into both the main flight controller firmware and the PID tuning firmware.
+
+### 4. Tune the PID Controller
+- Upload the firmware from `Firmware/Testing_Calibration/PID_Tuning_Webserver/`.
+- Connect to the ESP32 Wi-Fi access point and open the PID tuning dashboard.
+- Tune the roll, pitch, and yaw PID gains until stable flight performance is achieved.
+- Copy the optimized PID values into the main flight controller firmware.
+
+### 5. Upload the Main Flight Controller Firmware
+- Open `Firmware/Main_Firmware/Flight_Controller_v2/Flight_Controller_v2.ino`.
+- Update the firmware with the calibrated IMU offsets and tuned PID gains.
+- Upload the firmware to the ESP32.
+
+### 6. Perform Flight Testing
+- Verify the motor rotation direction and propeller orientation.
+- Perform an initial low-throttle hover test in a safe, open area.
+- Fine-tune the PID gains as required to achieve stable and responsive flight.
